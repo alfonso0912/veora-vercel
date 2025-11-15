@@ -1,43 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-
-    // 🔥 IMPORTANTISSIMO: Vercel accetta solo se sono entrambi true
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-
-    // ❗️ DISATTIVIAMO TUTTA LA STRICT MODE
     "strict": false,
-
-    // ❗️ Non facciamo controlli JS/TS durante la build
     "noEmit": true,
-    "checkJs": false,
-
     "esModuleInterop": true,
-    "module": "esnext",
-
-    // 🔥 BUNDLER SU VERCEL È BUGGATO → METTI NODE
-    "moduleResolution": "node",
-
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
-
-    // ❗️ QUESTA È QUELLA CHE ROMPEVA TUTTO
-    "isolatedModules": false,
-
     "jsx": "preserve",
-    "incremental": false,
-
-    "plugins": [{ "name": "next" }],
-
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "incremental": false
   },
-
-  // 🔥 RIMUOVO IL FOTTUTO .next/types CHE TI BUCAVA TUTTO
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/**/*"],
-
-  "exclude": ["node_modules", ".next"]
+  "include": ["src/**/*", "next-env.d.ts"],
+  "exclude": ["node_modules", ".next", "public"]
 }
