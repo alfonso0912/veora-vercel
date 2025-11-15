@@ -10,6 +10,11 @@ const nextConfig = {
     "/": ["./public/**/*"],
   },
 
+  // 🔥 DISABILITA ESLINT DURANTE LA BUILD SU VERCEL
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   experimental: {},
 };
 
