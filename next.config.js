@@ -1,27 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",
+  // ❌ NO EXPORT — VERCEL NON LO SUPPORTA SU NEXT 15
+  // Nada, rimosso tutto.
 
   images: {
     unoptimized: true,
   },
 
-  // Include TUTTE le immagini della cartella public nell'export
-  outputFileTracingIncludes: {
-    "/": ["./public/**/*"],
-  },
-
-  // 🔥 DISABILITA ESLINT DURANTE LA BUILD SU VERCEL
+  // Evita che Vercel blocchi la build
   eslint: {
     ignoreDuringBuilds: true,
   },
 
-  // 🔥 DISABILITA TYPESCRIPT DURANTE LA BUILD SU VERCEL
   typescript: {
     ignoreBuildErrors: true,
   },
 
-  experimental: {},
+  // Includi la cartella public per sicurezza
+  outputFileTracingIncludes: {
+    "/": ["./public/**/*"],
+  },
 };
 
 module.exports = nextConfig;
