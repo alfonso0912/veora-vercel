@@ -1,0 +1,143 @@
+/* VEORA CSS v3.3 - versione definitiva e validata 26/10/2025 */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==============================
+   🌟 STILE GLOBALE VEORA
+   ============================== */
+
+/* Tema chiaro di base */
+:root {
+  color-scheme: light;
+}
+
+/* Sfondo beige chiaro universale */
+html,
+body {
+  height: 100%;
+  background-color: #f6efe7; /* Beige chiaro */
+  color: #111; /* Testo quasi nero per leggibilità */
+  font-family: "Inter", system-ui, sans-serif;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Spazio sicuro per telefoni con notch */
+body {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ==============================
+   🎨 COLORI PERSONALIZZATI VEORA
+   ============================== */
+.text-gold {
+  color: #d4af37; /* Oro elegante */
+}
+
+.bg-gold {
+  background-color: #d4af37;
+}
+
+.text-beige {
+  color: #f6efe7;
+}
+
+.bg-beige {
+  background-color: #f6efe7;
+}
+
+/* ==============================
+   💎 LOGO VEORA ANIMATO ORO
+   ============================== */
+@keyframes shimmerGold {
+  0% {
+    background-position: -200%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+.veora-logo-gold {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: linear-gradient(
+    90deg,
+    #b8860b,
+    #d4af37,
+    #ffd700,
+    #d4af37,
+    #b8860b
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+  animation: shimmerGold 4s linear infinite;
+}
+
+/* ==============================
+   ✨ TITOLO "LE NOSTRE PRODUZIONI"
+   ============================== */
+.veora-titolo {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 4vw, 2rem); /* 🔹 si adatta automaticamente */
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 1.4rem;
+  margin-bottom: 2rem;
+  letter-spacing: 1.2px;
+  line-height: 1.2;
+
+  /* ✅ Fix taglio laterale destro */
+  width: 90%;
+  max-width: 600px;
+  padding: 0 10px;
+
+  /* Oro animato */
+  background: linear-gradient(
+    90deg,
+    #b8860b,
+    #d4af37,
+    #ffd700,
+    #d4af37,
+    #b8860b
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmerGold 5s linear infinite;
+}
+
+/* Responsive su smartphone */
+@media (max-width: 768px) {
+  .veora-titolo {
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* ==============================
+   🪩 CARD PRODOTTI
+   ============================== */
+.card {
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
