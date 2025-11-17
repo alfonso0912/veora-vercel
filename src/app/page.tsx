@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search } from "lucide-react";
-import catalogoData from "@/app/catalogo/catalogoData";
+import catalogoData from "@/app/catalogo/catalogoData.js";
+
 
 type ProdottoBase = {
   categoria: string;

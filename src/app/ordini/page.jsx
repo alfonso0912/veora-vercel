@@ -29,7 +29,6 @@ export default function IMieiOrdiniPage() {
         for (const item of lista) {
           const nomeCat = item.nome.trim().toLowerCase();
 
-          // 🔥 Match intelligente: perfetto, parziale, ordine invertito
           if (
             nomeCat === normalized ||
             nomeCat.includes(normalized) ||
@@ -50,12 +49,16 @@ export default function IMieiOrdiniPage() {
 
   // 📦 Carica ordini utente
   useEffect(() => {
-    const fetchOrdini = async () => {
-      if (!user) {
-        setLoading(false);
-        return;
-      }
+    // ⛔ Aspetta Firebase Auth
+    if (loadingUser) return;
 
+    // ⛔ Utente NON loggato → niente ordini
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
+    const fetchOrdini = async () => {
       try {
         const q = query(
           collection(db, "ordini"),
@@ -77,7 +80,6 @@ export default function IMieiOrdiniPage() {
           let img =
             prodotto.immagine || data.immagine || "/images/logo-veora.jpg";
 
-          // Fallback al catalogo (ATELIER, FERMA CAPELLI, ECC.)
           if (!categoria || !sottocategoria || !slug) {
             const info = getProductFromCatalog(nomeProdotto);
 
@@ -114,29 +116,18 @@ export default function IMieiOrdiniPage() {
     };
 
     fetchOrdini();
-  }, [user]);
+  }, [user, loadingUser]);
 
-  // 🔗 Apri pagina prodotto
-  const handleClickOrdine = (ordine) => {
-    if (ordine.categoria && ordine.sottocategoria && ordine.slug) {
-      router.push(
-        `/catalogo/${ordine.categoria}/${ordine.sottocategoria}/${ordine.slug}`
-      );
-      return;
-    }
+  // 🟡 Stato di caricamento iniziale
+  if (loadingUser || loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F6EFE7]">
+        <p className="text-[#b48a02] text-lg">Caricamento ordini...</p>
+      </div>
+    );
+  }
 
-    const info = getProductFromCatalog(ordine.nomeProdotto);
-    if (info) {
-      router.push(
-        `/catalogo/${info.categoria}/${info.sottocategoria}/${info.slug}`
-      );
-      return;
-    }
-
-    console.warn("Impossibile aprire pagina prodotto:", ordine);
-  };
-
-  // ⛔ Non loggato
+  // ⛔ Utente NON loggato (ma solo dopo loadingUser)
   if (!loadingUser && !user) {
     return (
       <section className="min-h-screen flex flex-col items-center justify-center bg-[#F6EFE7] text-[#222] px-6 text-center">
@@ -153,15 +144,6 @@ export default function IMieiOrdiniPage() {
           Accedi o Registrati
         </button>
       </section>
-    );
-  }
-
-  // ⏳ Caricamento
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F6EFE7]">
-        <p className="text-[#b48a02] text-lg">Caricamento ordini...</p>
-      </div>
     );
   }
 

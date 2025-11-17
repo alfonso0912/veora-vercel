@@ -11,22 +11,26 @@ export default function AccountPage() {
   const [dati, setDati] = useState(null);
   const router = useRouter();
 
+  // 🔥 Carica i dati utente SOLO quando Firebase ha finito loading
   useEffect(() => {
+    if (loadingUser || !user) return;
+
     const fetchUserData = async () => {
-      if (!user) return;
       const ref = doc(db, "users", user.uid);
       const snap = await getDoc(ref);
       if (snap.exists()) setDati(snap.data());
     };
+
     fetchUserData();
-  }, [user]);
+  }, [user, loadingUser]);
 
   const handleLogout = async () => {
     await signOut(auth);
     router.push("/login");
   };
 
-  if (loadingUser)
+  // 🔥 Stato di caricamento iniziale (Firebase deve finire di capire se sei loggato)
+  if (loadingUser) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#F6EFE7]">
         <p className="text-[#b48a02] text-lg font-medium">
@@ -34,8 +38,10 @@ export default function AccountPage() {
         </p>
       </div>
     );
+  }
 
-  if (!user)
+  // 🔥 Mostra "Accedi" SOLO se Firebase ha terminato e user è davvero null
+  if (!loadingUser && !user) {
     return (
       <section className="min-h-screen flex flex-col items-center justify-center bg-[#F6EFE7] text-[#222] px-6 text-center">
         <h1 className="text-4xl font-serif text-[#b48a02] mb-4">
@@ -52,7 +58,9 @@ export default function AccountPage() {
         </button>
       </section>
     );
+  }
 
+  // 🔥 Se sei loggato, mostra l’area personale
   return (
     <section className="min-h-screen flex flex-col items-center justify-start bg-[#F6EFE7] text-[#222] px-6 pt-20 pb-16">
       {/* 🌿 TITOLO */}

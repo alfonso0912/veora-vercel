@@ -1,20 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    unoptimized: true,
-  },
-
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-
-  outputFileTracingIncludes: {
-    "/": ["./public/**/*"],
-  },
+  output: "export", // esporta in static
+  distDir: "out", // cartella valida, non “public”
+  images: { unoptimized: true }, // Next Image senza problemi
 };
 
 module.exports = nextConfig;
