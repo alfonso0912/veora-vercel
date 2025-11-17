@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: { unoptimized: true },
+  output: undefined, // ⛔ niente EXPORT
+  images: {
+    unoptimized: true,
+  },
 };
 
 module.exports = nextConfig;
